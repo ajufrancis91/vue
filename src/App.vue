@@ -4,25 +4,27 @@
     <router-view></router-view>
 <span v-on:click="testing()">#####</span>
 <span v-on:click="testingPost()">post</span>
- <div id="app">
+<!-- <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link> -->
+<!-- <router-view @authenticated="setAuthenticated" /> -->
+ <!-- <div id="app">
         <div id="nav">
             <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
         </div>
         <router-view @authenticated="setAuthenticated" />
-    </div>
-  </div> 
- 
+    </div>-->
+  </div>
+
 </template>
 
 <script>
 
  // Make it available to other modules
 import {userRef} from "./main.js"
+import authenticated from "./main.js"
 export default {
   name: 'App',
         data() {
             return {
-                authenticated: false,
                 mockAccount: {
                     username: "leocj",
                     password: "1234567890"

@@ -30,18 +30,14 @@
             <a class="dropdown-item" href="#">Another notification</a>
           </drop-down>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="ti-settings"></i>
-              <p>
-                Settings
-              </p>
-            </a>
+            <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
           </li>
         </ul>
       </div>
     </div></nav>
 </template>
 <script>
+
 export default {
   computed: {
     routeName() {

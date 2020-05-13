@@ -15,7 +15,7 @@ import SecureComponent from "../pages/views/secure.vue"
 
 const routes = [
   {
-    path: "/dashboard",
+    path: "/",
     name: "dashboard",
     component: DashboardLayout,
     children: [

@@ -19,7 +19,6 @@ import router from "./router/index";
 import VueResource from 'vue-resource'
 import * as firebase from "firebase";
 
-
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
 
@@ -42,7 +41,13 @@ let securityGroupsRef = db.ref('securityGroups')
 export { userRef };
 export { companyRef };
 export { securityGroupsRef };
-
+export default{
+  data() {
+    return {
+        authenticated: false
+    }
+}
+}
 /* eslint-disable no-new */
 new Vue({
   router,
