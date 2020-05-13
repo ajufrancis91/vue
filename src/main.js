@@ -35,8 +35,12 @@ firebase.initializeApp(config);
 const db = firebase.database();
 
 let userRef = db.ref('user')
+let companyRef = db.ref('company')
+let securityGroupsRef = db.ref('securityGroups')
 
 export { userRef };
+export { companyRef };
+export { securityGroupsRef };
 
 /* eslint-disable no-new */
 new Vue({

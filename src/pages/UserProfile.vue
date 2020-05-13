@@ -9,7 +9,7 @@
       <div class="col-xl-8 col-lg-7 col-md-6">
 
 <!-- -->
-      <div class="col-xl-8 col-lg-7 col-md-6" v-if="securityGroup === 'cheifArchitect'">
+      <div class="col-xl-8 col-lg-7 col-md-6" >
         <add-project>
 
         </add-project>
@@ -18,7 +18,7 @@
  <!-- -->
 
  <!-- -->
-      <div class="col-xl-8 col-lg-7 col-md-6"  v-if="securityGroup === 'admin'">
+      <div class="col-xl-8 col-lg-7 col-md-6" >
         <create-company>
 
         </create-company>
@@ -26,7 +26,7 @@
       </div>
  <!-- -->
  <!-- -->
-      <div class="col-xl-8 col-lg-7 col-md-6"  v-if="securityGroup === 'cheifArchitect'">
+      <div class="col-xl-8 col-lg-7 col-md-6" >
         <premote-users>
 
         </premote-users>
@@ -34,7 +34,7 @@
       </div>
  <!-- -->
   <!-- -->
-      <div class="col-xl-8 col-lg-7 col-md-6" v-if="securityGroup === 'cheifArchitect'">
+      <div class="col-xl-8 col-lg-7 col-md-6">
         <add-users>
 
         </add-users>

@@ -26,8 +26,6 @@
             </fg-input>
           </div>
         </div>
-
-
         <div class="row">
           <div class="col-md-12">
             <fg-input type="text"
@@ -74,25 +72,43 @@
   </card>
 </template>
 <script>
+import {companyRef} from "../../main.js"
 export default {
   data() {
     return {
       user: {
-        company: "Paper Dashboard",
-        username: "michael23",
+        companyName: "",
+        ContactPerson: "",
         email: "",
-        firstName: "Chet",
-        lastName: "Faker",
+        country: "Faker",
         address: "Melbourne, Australia",
         city: "Melbourne",
         postalCode: "",
-        aboutMe: `We must accept finite disappointment, but hold on to infinite hope.`
       }
     };
   },
   methods: {
     updateProfile() {
       alert("Your data: " + JSON.stringify(this.user));
+    },
+    testing: function(){
+        this.$http.get(userRef+".json").then(response => {
+
+          // get body data
+          console.log(response.body);
+
+        }, response => {
+          // error callback
+        });
+    },
+    addCompany: function(){
+      alert(this.user.companyName);
+        this.$http.post(companyRef+".json",{"name":this.user.companyName,"email":this.user.email,"address":this.user.address,"pin":this.user.postalCode,"city":this.user.city,"ContactPerson":this.user.ContactPerson,"country":this.user.country}).then(response => {
+          // get body data
+          console.log(response.body);
+        }, response => {
+          // error callback
+        });
     }
   }
 };
