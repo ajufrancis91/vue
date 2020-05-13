@@ -19,6 +19,7 @@ import router from "./router/index";
 import VueResource from 'vue-resource'
 import * as firebase from "firebase";
 
+
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
 
