@@ -16,11 +16,27 @@
 import Vue from "vue";
 import App from "./App";
 import router from "./router/index";
+import VueResource from 'vue-resource'
+import * as firebase from "firebase";
 
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
 
 Vue.use(PaperDashboard);
+Vue.use(VueResource);
+
+
+let config = {
+  projectId: "buildin-f0275",
+  databaseURL: "https://buildin-f0275.firebaseio.com"
+};
+
+firebase.initializeApp(config);
+const db = firebase.database();
+
+let userRef = db.ref('user')
+
+export { userRef };
 
 /* eslint-disable no-new */
 new Vue({

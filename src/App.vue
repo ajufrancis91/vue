@@ -2,11 +2,37 @@
   <div :class="{'nav-open': $sidebar.showSidebar}">
     <notifications></notifications>
     <router-view></router-view>
+<span v-on:click="testing()">#####</span>
+<span v-on:click="testingPost()">post</span>
   </div>
 </template>
 
 <script>
-export default {};
+
+ // Make it available to other modules
+import {userRef} from "./main.js"
+export default {
+  methods: {
+      testing: function(){
+        this.$http.get(userRef+".json").then(response => {
+
+          // get body data
+          console.log(response.body);
+
+        }, response => {
+          // error callback
+        });
+      },
+      testingPost: function(){
+        this.$http.post(userRef+".json",{"name":"leo"}).then(response => {
+          // get body data
+          console.log(response.body);
+        }, response => {
+          // error callback
+        });
+      }
+    }
+};
 </script>
 
 <style lang="scss">
