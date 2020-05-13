@@ -10,12 +10,14 @@ import Icons from "@/pages/Icons.vue";
 import Maps from "@/pages/Maps.vue";
 import Typography from "@/pages/Typography.vue";
 import TableList from "@/pages/TableList.vue";
+import LoginComponent from "../pages/views/login.vue"
+import SecureComponent from "../pages/views/secure.vue"
 
 const routes = [
   {
-    path: "/",
+    path: "/dashboard",
+    name: "dashboard",
     component: DashboardLayout,
-    redirect: "/dashboard",
     children: [
       {
         path: "dashboard",
@@ -54,6 +56,16 @@ const routes = [
       }
     ]
   },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginComponent
+},
+{
+    path: "/secure",
+    name: "secure",
+    component: SecureComponent
+},
   { path: "*", component: NotFound }
 ];
 
