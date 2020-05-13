@@ -19,8 +19,10 @@
     "vue": "^2.6.11",
     "vue-clickaway": "^2.1.0",
     "vue-notifyjs": "^0.3.0",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
-    "vuefire": "^2.2.2"
+    "vuefire": "^2.2.2",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.10.0",
