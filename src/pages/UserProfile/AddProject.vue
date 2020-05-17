@@ -82,15 +82,20 @@ export default {
                             const resultArray2 = [];
                             for (let key in data) {
                               for(let usertype in data[key]["securityGroups"]){
+
                                     if(data[key]["securityGroups"][usertype] === "client"){
                                           resultArray.push({"Key":key,"Value":data[key]["userName"]});
+
                                     }else if(data[key]["securityGroups"][usertype] === "employee"){
                                           resultArray2.push({"Key":key,"Value":data[key]["userName"]});
+
                                     }
                               }
                             }
                             this.user.ClientNames = resultArray;
                             this.user.Architect = resultArray2;
+                            console.log('Archi' + resultArray2)
+                             console.log('clint' + resultArray2)
                         });
 
   },

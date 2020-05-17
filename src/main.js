@@ -22,6 +22,10 @@ import * as firebase from "firebase";
 import PaperDashboard from "./plugins/paperDashboard";
 import "vue-notifyjs/themes/default.css";
 
+import FileUpload from 'v-file-upload';
+
+Vue.use(FileUpload)
+
 Vue.use(PaperDashboard);
 Vue.use(VueResource);
 
@@ -37,10 +41,15 @@ const db = firebase.database();
 let userRef = db.ref('user')
 let companyRef = db.ref('company')
 let securityGroupsRef = db.ref('securityGroups')
+let adddrawing = db.ref('adddrawing')
+let addrfi = db.ref('addrfi')
 
 export { userRef };
 export { companyRef };
 export { securityGroupsRef };
+export { adddrawing };
+export { addrfi };
+
 export default{
   data() {
     return {

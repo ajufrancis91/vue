@@ -24,6 +24,7 @@
     </div>
 </template>
 <script>
+
 import { PaperTable } from "@/components";
 const tableColumns = ["Id", "Name", "Salary", "Country", "City"];
 const tableData = [
@@ -83,7 +84,27 @@ export default {
         data: [...tableData]
       }
     };
-  }
+  },
+   methods: {
+      getUsers: function(){
+        this.$http.get(userRef+".json").then(response => {
+
+          // get body data
+          console.log(response.body);
+
+        }, response => {
+          // error callback
+        });
+      },
+      testingPost: function(){
+        this.$http.post(userRef+".json",{"name":"leo"}).then(response => {
+          // get body data
+          console.log(response.body);
+        }, response => {
+          // error callback
+        });
+      }
+    }
 };
 </script>
 <style>

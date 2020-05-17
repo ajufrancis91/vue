@@ -1,5 +1,5 @@
 <template>
-  <card class="card" title="Add Drawing">
+  <card class="card" title="Add RFI">
     <div>
       <form @submit.prevent>
         <div class="row">
@@ -68,11 +68,19 @@
                         </option>
                     </select>
           </div>
+          <div class="col-md-4">
+            <label for="priority">REF Doc</label>
+                    <select id="priority" v-model="selectedRef"  class="form-control">
+                        <option v-for="Ref in user.Refs" >
+                          {{ Ref }}
+                        </option>
+                    </select>
+          </div>
         </div>
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Comments</label>
+              <label>Query</label>
               <textarea rows="5" class="form-control border-input"
                         placeholder="Here can be your description"
                         v-model="user.Comments">
@@ -89,7 +97,7 @@
           <p-button type="info"
                     round
                     @click.native.prevent="updateProfile">
-            ADD DRAWING
+            ADD RFI
           </p-button>
         </div>
         <div class="clearfix"></div>
@@ -99,7 +107,7 @@
 </template>
 <script>
 import FileUpload from "./FileUpload.vue";
-import {adddrawing} from "../../main.js"
+import {addrfi} from "../../main.js"
 export default {
   components: {
         FileUpload
@@ -115,6 +123,7 @@ export default {
         SubDisciplines: ['Plan','Section','Elevation','Details'],
         PrStages: ['Initial Design','Building Approval','Final Design','Construction Stage'],
         Revisions:['1','2','3'],
+        Refs:['open','closed'],
         Types:['Drawing','BOQ','RFI','Client Instruction'],
         Comments: '',
       },
@@ -123,17 +132,18 @@ export default {
       selectedDisciplines:'',
       selectedSubDisciplines:'',
       selectedPrStages:'',
-      selectedRevisions:''
+      selectedRevisions:'',
+      selectedRef:''
 
     };
   },
   methods: {
     updateProfile() {
       //alert("Your data: " + this.selectedType);
-      this.$http.post(adddrawing+".json",{"Types":this.selectedType,"docNo":this.user.docNo,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments}).then(response => {
+      this.$http.post(addrfi+".json",{"Types":this.selectedType,"docNo":this.user.docNo,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments,"ref":this.selectedRef}).then(response => {
           // get body data
           console.log(response.body);
-          alert("Your data: " + JSON.stringify(this.user));
+          alert("Your data: Sucessfully submited");
       }, response => {
           // error callback
       });
