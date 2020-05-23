@@ -44,6 +44,7 @@ export default {
       ()=>{this.uploadValue=100;
         storageRef.snapshot.ref.getDownloadURL().then((url)=>{
           this.picture =url;
+          this.$store.state.pictureUrl=url;
         });
       }
       );

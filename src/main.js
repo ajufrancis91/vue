@@ -43,8 +43,9 @@ const db = firebase.database();
 let userRef = db.ref('user')
 let companyRef = db.ref('company')
 let securityGroupsRef = db.ref('securityGroups')
-let adddrawing = db.ref('adddrawing')
-let addrfi = db.ref('addrfi')
+let adddrawing = db.ref('drawing')
+let addrfi = db.ref('rfi')
+let clintDrawing = db.ref('clintDrawing')
 let projectRef = db.ref('project')
 
 export const dba = firebase.firestore();
@@ -54,6 +55,7 @@ export { securityGroupsRef };
 export { adddrawing };
 export { addrfi };
 export { projectRef };
+export { clintDrawing };
 
 export default{
   data() {

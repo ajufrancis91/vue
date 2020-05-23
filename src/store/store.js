@@ -8,5 +8,6 @@ export const store = new Vuex.Store({
     username:'',
     password:'',
     companycode:'',
+    pictureUrl:''
   }
 })

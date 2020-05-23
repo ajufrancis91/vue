@@ -1,5 +1,5 @@
 <template>
-  <card class="card" title="Add Drawing">
+  <card class="card" title="Clint Drawing">
     <div>
       <form @submit.prevent>
         <div class="row">
@@ -99,7 +99,7 @@
 </template>
 <script>
 import FileUpload from "./FileUpload.vue";
-import {adddrawing} from "../../main.js"
+import {clintDrawing} from "../../main.js";
 export default {
   components: {
         FileUpload
@@ -130,13 +130,12 @@ export default {
   methods: {
     updateProfile() {
       //alert("Your data: " + this.selectedType);
-      this.$http.post(adddrawing+".json",{"Types":this.selectedType,"docNo":this.user.docNo,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments,"File":this.$store.state.pictureUrl}).then(response => {
+      this.$http.post(clintDrawing+".json",{"Types":this.selectedType,"docNo":this.user.docNo,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments,"File":this.$store.state.pictureUrl}).then(response => {
           // get body data
-          console.log(response.body);
           alert("Your data: " + JSON.stringify(this.user));
       }, response => {
           // error callback
-            this.$store.state.pictureUrl="";
+          this.$store.state.pictureUrl="";
       });
 
     }

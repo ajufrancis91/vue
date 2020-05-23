@@ -110,6 +110,7 @@
 import {addrfi} from "../../main.js"
 import axios from 'axios'
 import FileUpload from "./FileUpload.vue"
+
 export default {
   components: {
       FileUpload
@@ -146,24 +147,17 @@ export default {
     };
   },
   methods:{
-    previewImage(event) {
-      this.uploadValue=0;
-      this.picture=null;
-      this.imageData = event.target.files[0];
-    },
 
-    onUpload(){
-      this.picture=null;
-      const storageRef=firebase.storage().ref(`${this.imageData.name}`).put(this.imageData);
-      storageRef.on(`state_changed`,snapshot=>{
-        this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-      }, error=>{console.log(error.message)},
-      ()=>{this.uploadValue=100;
-        storageRef.snapshot.ref.getDownloadURL().then((url)=>{
-          this.picture =url;
-        });
-      }
-      );
+      updateProfile() {
+      //alert("Your data: " + this.selectedType);
+      this.$http.post(addrfi+".json",{"Types":this.selectedType,"docNo":this.user.docNo,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments,"File":this.$store.state.pictureUrl}).then(response => {
+          // get body data
+          alert("Your data: " + JSON.stringify(this.user));
+      }, response => {
+          // error callback
+          this.$store.state.pictureUrl="";
+      });
+
     }
 
   }

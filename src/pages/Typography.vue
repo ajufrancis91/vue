@@ -13,17 +13,24 @@
 
       </add-r-f-i>
     </card>
+     <card>
+       <clint-drawing>
+
+      </clint-drawing>
+    </card>
   </div>
  </div>
 </template>
 <script>
 import AddDrawing from "./UserProfile/AddDrawing.vue";
 import AddRFI from "./UserProfile/AddRFI.vue";
+import clintDrawing from "./UserProfile/clintDrawing.vue";
 
 export default {
 components: {
 AddDrawing,
-AddRFI
+AddRFI,
+clintDrawing
 }
 };
 </script>
