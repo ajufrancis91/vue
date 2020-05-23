@@ -1,0 +1,82 @@
+{
+  "-M77raPfAEVbqz9YC0bt": {
+    "companyCode": "-M78CsNlBRR-j83D4PdJ",
+    "password": "qwerty",
+    "securityGroups": [
+      "admin",
+      "employee"
+    ],
+    "userName": "aju"
+  },
+  "-M77vsfry88Q8UH3T2_s": {
+    "companyCode": "-M78CsNlBRR-j83D4PdJ",
+    "password": "1234567890",
+    "securityGroups": [
+      "employee"
+    ],
+    "userName": "leo"
+  },
+  "-M7BUfwLpc_jX_5EMmZ8": {
+    "name": "leo"
+  },
+  "-M7BUqgzAt7rCpXRixT9": {
+    "name": "leo"
+  },
+  "-M7BUr2bbVuHN-jePmsQ": {
+    "name": "leo"
+  },
+  "-M7B_jVwXcjOVhK1AGfo": {
+    "name": "leo"
+  },
+  "-M7B_k7mYsznu9SQegOp": {
+    "name": "leo"
+  },
+  "-M7BghqLK_ARkqApS5cr": {
+    "ContactPerson": "",
+    "address": "Melbourne, Australia",
+    "city": "Melbourne",
+    "country": "Faker",
+    "email": "",
+    "name": "",
+    "pin": ""
+  },
+  "-M7Bgjw_QXxxRUCfva0C": {
+    "ContactPerson": "",
+    "address": "Melbourne, Australia",
+    "city": "Melbourne",
+    "country": "Faker",
+    "email": "",
+    "name": "hfdf",
+    "pin": ""
+  },
+  "-M7BhWio_QmruwzDZq8I": {
+    "ContactPerson": "rr",
+    "address": "Melbourne, Australia",
+    "city": "Melbourne",
+    "country": "Faker",
+    "email": "",
+    "name": "Aju",
+    "pin": ""
+  },
+  "-M7Bipcyf_MdfGN5_Iyp": {
+    "ContactPerson": "sala",
+    "address": "Melbourne, Australia",
+    "city": "Melbourne",
+    "country": "Faker",
+    "email": "ajufran@dmail",
+    "name": "Abio",
+    "pin": ""
+  },
+  "-M7BjJquN9vLvpv9xhQf": {
+    "ContactPerson": "sala",
+    "address": "Melbourne, Australia",
+    "city": "Melbourne",
+    "country": "Faker",
+    "email": "ajufran@dmail",
+    "name": "Abio",
+    "pin": ""
+  },
+  "-M7E-7mmz3Xa1YfnGs8W": {
+    "name": "leo"
+  }
+}

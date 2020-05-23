@@ -1,28 +1,61 @@
 <template>
-  <file-upload :url='url' :thumb-url='thumbUrl' :headers="headers" @change="onFileChange"></file-upload>
+  <div>
+    <div >
+      <p>Upload an image to Firebase:</p>
+      <input type="file" @change="previewImage" accept="image/*" >
+    </div>
+    <div>
+      <p>Progress: {{uploadValue.toFixed()+"%"}}
+      <progress id="progress" :value="uploadValue" max="100" ></progress>  </p>
+    </div>
+    <div v-if="imageData!=null">
+        <img class="preview" :src="picture">
+        <br>
+      <button @click="onUpload">Upload</button>
+    </div>
+  </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import FileUpload from 'v-file-upload'
-Vue.use(FileUpload)
+import firebase from 'firebase';
 
 export default {
-  data () {
-    return {
-      url: 'http://your-post.url',
-      headers: {'access-token': '<your-token>'},
-      filesUploaded: []
-    }
+  name: 'Upload',
+  data(){
+	return{
+      imageData: null,
+      picture: null,
+      uploadValue: 0
+	}
   },
-  methods: {
-    thumbUrl (file) {
-      return file.myThumbUrlProperty
+  methods:{
+    previewImage(event) {
+      this.uploadValue=0;
+      this.picture=null;
+      this.imageData = event.target.files[0];
     },
-    onFileChange (file) {
-      // Handle files like:
-      this.fileUploaded = file
+
+    onUpload(){
+      this.picture=null;
+      const storageRef=firebase.storage().ref(`${this.imageData.name}`).put(this.imageData);
+      storageRef.on(`state_changed`,snapshot=>{
+        this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+      }, error=>{console.log(error.message)},
+      ()=>{this.uploadValue=100;
+        storageRef.snapshot.ref.getDownloadURL().then((url)=>{
+          this.picture =url;
+        });
+      }
+      );
     }
+
   }
 }
 </script>
+
+<style scoped="">
+img.preview {
+    width: 200px;
+}
+
+</style>

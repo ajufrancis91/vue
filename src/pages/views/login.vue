@@ -8,6 +8,7 @@
 </template>
 
 <script>
+    import {userRef} from "../../main.js"
     export default {
         name: 'Login',
         data() {
@@ -24,11 +25,29 @@
                     if(this.input.username == this.$parent.mockAccount.username && this.input.password == this.$parent.mockAccount.password) {
                         this.$emit("authenticated", true);
                         this.$router.replace({ name: "dashboard" });
+                        this.$store.state.username='ajuFrancis';
+
+
+                        this.$http.get(userRef+".json").then(response => {
+
+                          // get body data
+                          //console.log(response.body);
+                          //console.log(JSON.stringify(response.body));
+
+
+                        }, response => {
+                          // error callback
+                        });
+
+
+
+
                     } else {
-                        console.log("The username and / or password is incorrect");
+                        alert("The username and / or password is incorrect");
+
                     }
                 } else {
-                    console.log("A username and password must be present");
+                    alert("A username and password must be present");
                 }
             }
         }

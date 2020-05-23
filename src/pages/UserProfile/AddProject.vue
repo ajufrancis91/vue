@@ -7,7 +7,7 @@
             <fg-input type="text"
                       label="Project Name"
                       placeholder="Project Name"
-                      v-model="user.company">
+                      v-model="user.prjectName">
             </fg-input>
           </div>
           <div class="col-md-3">
@@ -53,22 +53,16 @@
 <script>
 import {userRef} from "../../main.js"
 import {companyRef} from "../../main.js"
+import {projectRef} from "../../main.js"
 export default {
   data() {
     return {
       user: {
-        company: "Paper Dashboard",
-        username: "michael23",
-        email: "",
-        firstName: "Chet",
-        lastName: "Faker",
-        address: "Melbourne, Australia",
-        city: "Melbourne",
+        prjectName: "",
+        ArchitectName: "",
+        Location: "",
         ClientNames:[],
-        Architect:[],
-        postalCode: "",
-        userType:"",
-        aboutMe: `We must accept finite disappointment, but hold on to infinite hope.`
+        Architect:[]
       }
     };
   },
@@ -95,7 +89,7 @@ export default {
                             this.user.ClientNames = resultArray;
                             this.user.Architect = resultArray2;
                             console.log('Archi' + resultArray2)
-                             console.log('clint' + resultArray2)
+                             console.log('clint' + resultArray)
                         });
 
   },
@@ -123,7 +117,7 @@ export default {
     },
     AddProject: function(){
       alert(this.user.companyName);
-        this.$http.post(companyRef+".json",{"name":this.user.companyName,"email":this.user.email,"address":this.user.address,"pin":this.user.postalCode,"city":this.user.city,"ContactPerson":this.user.ContactPerson,"country":this.user.country}).then(response => {
+        this.$http.post(projectRef+".json",{"name":this.user.companyName,"email":this.user.email,"address":this.user.address,"pin":this.user.postalCode,"city":this.user.city,"ContactPerson":this.user.ContactPerson,"country":this.user.country}).then(response => {
           // get body data
           console.log(response.body);
         }, response => {

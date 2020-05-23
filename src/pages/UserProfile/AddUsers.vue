@@ -102,6 +102,15 @@ export default {
   methods: {
     updateProfile() {
       alert("Your data: " + JSON.stringify(this.user));
+    },
+    addUser(){
+        this.$http.post(adddrawing+".json",{"Types":this.selectedType,"docNo":this.user.docNo,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments}).then(response => {
+          // get body data
+          console.log(response.body);
+          alert("Your data: " + JSON.stringify(this.user));
+      }, response => {
+          // error callback
+      });
     }
   }
 };
