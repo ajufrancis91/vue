@@ -46,12 +46,13 @@
 
 import { PaperTable } from "@/components";
 import {projectRef} from "../../src/main.js"
-let tableColumns2 = ["Comments", "Disciplines", "File", "PrStages", "Revisions","SubDisciplines","TimeStamp","Types","docNo","title"];
-let tableColumns3 = ["Comments", "Disciplines", "File", "PrStages", "Revisions","SubDisciplines","TimeStamp","Types","docNo","title"];
 let tableColumns = ["Comments", "Disciplines", "File", "PrStages", "Revisions","SubDisciplines","TimeStamp","Types","docNo","title"];
 let tableData = [];
+let tableColumns2 = ["Comments", "Disciplines", "File", "PrStages", "Revisions","SubDisciplines","TimeStamp","Types","docNo","title"];
 let tableData2 = [];
+let tableColumns3 = ["Comments", "Disciplines", "File", "PrStages", "Revisions","SubDisciplines","TimeStamp","Types","docNo","title"];
 let tableData3 = [];
+
 
 export default {
   components: {
@@ -64,7 +65,7 @@ export default {
         subTitle: "Here is a subtitle for this table",
         columns: [...tableColumns],
         data: [...tableData]
-      },
+       },
       table2: {
         title: "RFI",
         subTitle: "Here is a subtitle for this table",
@@ -97,40 +98,15 @@ export default {
                         });
   },
    methods: {
-      getUsers: function(){
-        this.$http.get(userRef+".json").then(response => {
-
-          // get body data
-          console.log(response.body);
-
-        }, response => {
-          // error callback
-        });
-      },
-      testingPost: function(){
-        this.$http.post(userRef+".json",{"name":"leo"}).then(response => {
-          // get body data
-          console.log(response.body);
-        }, response => {
-          // error callback
-        });
-      },
       onChange: function($event){
-        console.log("hello");
-        projectRef.once("value",function(data){
-          data.forEach((child)=>{
-
-              // for (let innerobj in child){
-              //       console.log(innerobj)
-              // }
+              projectRef.once("value",function(data){
+        data.forEach((child)=>{
         child.ref.child("sketches/drawing").once("value",function(data){
             data.forEach((child)=>{
               child.ref.orderByChild('TimeStamp').once("value",function(data){
                 let dict ={}
                  data.forEach((child)=>{
                    //create drawing dict
-                      console.log(child.val());
-                      console.log(0);
                       dict[child.key]=child.val();
                  });
                   tableData.push(dict)
@@ -141,21 +117,47 @@ export default {
             });
         });
 
+            child.ref.child("sketches/rfi").once("value",function(data){
+            data.forEach((child)=>{
+              child.ref.orderByChild('TimeStamp').once("value",function(data){
+                let dict ={}
+                 data.forEach((child)=>{
+                   //create drawing dict
+                      dict[child.key]=child.val();
+                 });
+                  tableData2.push(dict)
+                  dict={}
 
+              });
 
-            //console.log(child.key);
-//console.log(innerChild.child("sketches/drawing").child().key)
+            });
+        });
 
-            ///console.log(child.key)
+            child.ref.child("sketches/clientDrawing").once("value",function(data){
+            data.forEach((child)=>{
+              child.ref.orderByChild('TimeStamp').once("value",function(data){
+                let dict ={}
+                 data.forEach((child)=>{
+                   //create drawing dict
+                      dict[child.key]=child.val();
+                 });
+                  tableData3.push(dict)
+                  dict={}
+
+              });
+
+            });
+        });
+
           });
         });
-        // projectRef.child('sketches/drawing').orderByChild('TimeStamp').on("",function(snapshot){
-        //   console.log("rererere");
-        //   console.log(snapshot)
-        // });
-        // projectRef.child('sketches/drawing').orderByChild('TimeStamp').on("child_added", function(snapshot){
-        //   console.log(snapshot.key)
-        // })
+        console.log("Drawing");
+        console.log(tableData);
+        console.log("irf");
+        console.log(tableData2);
+        console.log("clientDrawing");
+        console.log(tableData3);
+
       }
     }
 };
