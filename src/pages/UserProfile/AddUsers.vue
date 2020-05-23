@@ -19,6 +19,63 @@
             </fg-input>
           </div>
         </div>
+         <div class="row">
+          <div class="col-md-5">
+            <fg-input type="text"
+                      label="Contact Person"
+                      placeholder="User Name"
+                      v-model="user.contactPerson">
+            </fg-input>
+          </div>
+          <div class="col-md-3">
+            <fg-input type="text"
+                      label="Address"
+                      placeholder="address"
+                      v-model="user.address">
+            </fg-input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <fg-input type="text"
+                      label="city"
+                      placeholder="city"
+                      v-model="user.city">
+            </fg-input>
+          </div>
+          <div class="col-md-3">
+            <fg-input type="text"
+                      label="Country"
+                      placeholder="Country"
+                      v-model="user.country">
+            </fg-input>
+          </div>
+        </div>
+          <div class="row">
+          <div class="col-md-5">
+            <fg-input type="text"
+                      label="email"
+                      placeholder="email"
+                      v-model="user.email">
+            </fg-input>
+          </div>
+          <div class="col-md-3">
+            <fg-input type="text"
+                      label="Name"
+                      placeholder="Name"
+                      v-model="user.name">
+            </fg-input>
+          </div>
+        </div>
+         <div class="row">
+          <div class="col-md-5">
+            <fg-input type="text"
+                      label="pin"
+                      placeholder="pin"
+                      v-model="user.pin">
+            </fg-input>
+          </div>
+        </div>
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
                     <label for="priority">Company Code</label>
                     <select id="priority" class="form-control">
@@ -29,7 +86,7 @@
         </div>
 
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
-                    <label for="securityGroups">Company Code</label>
+                    <label for="securityGroups">User Type</label>
                     <select id="securityGroups" class="form-control">
                         <option v-for="security in user.securityGroups" v-bind:value="security.Key">
                           {{ security.Value }}
@@ -53,22 +110,21 @@
 <script>
 import {companyRef} from "../../main.js"
 import {securityGroupsRef} from "../../main.js"
+import {userRef} from "../../main.js"
 export default {
   data() {
     return {
       user: {
         company: "Paper Dashboard",
-        username: "michael23",
+        name: "michael23",
         email: "",
-        firstName: "Chet",
-        lastName: "Faker",
         address: "Melbourne, Australia",
         city: "Melbourne",
-        postalCode: "",
+        pin: "",
+        contactPerson:"",
         priorities: [],
         securityGroups: [],
         userType: ['Clint', 'Employee', 'Admin'],
-        aboutMe: `We must accept finite disappointment, but hold on to infinite hope.`
       }
     };
   },
@@ -104,7 +160,7 @@ export default {
       alert("Your data: " + JSON.stringify(this.user));
     },
     addUser(){
-        this.$http.post(adddrawing+".json",{"Types":this.selectedType,"docNo":this.user.docNo,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments}).then(response => {
+        this.$http.post(userRef+".json",{"ContactPerson":this.contactPerson,"pin":this.user.pin,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments}).then(response => {
           // get body data
           console.log(response.body);
           alert("Your data: " + JSON.stringify(this.user));
