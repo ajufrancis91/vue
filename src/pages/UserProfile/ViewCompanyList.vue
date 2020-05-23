@@ -79,7 +79,7 @@ export default {
         this.$http.get(userRef+".json").then(response => {
 
           // get body data
-          console.log(response.body);
+          //console.log(response.body);
 
         }, response => {
           // error callback
@@ -88,7 +88,7 @@ export default {
       testingPost: function(){
         this.$http.post(userRef+".json",{"name":"leo"}).then(response => {
           // get body data
-          console.log(response.body);
+          //console.log(response.body);
         }, response => {
           // error callback
         });
@@ -98,7 +98,7 @@ export default {
           this.$http.get(companyRef+".json").then(response => {
 
             // get body data
-            console.log(response.body);
+            //console.log(response.body);
 
           }, response => {
             // error callback

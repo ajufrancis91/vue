@@ -59,13 +59,6 @@
                       v-model="user.email">
             </fg-input>
           </div>
-          <div class="col-md-3">
-            <fg-input type="text"
-                      label="Name"
-                      placeholder="Name"
-                      v-model="user.name">
-            </fg-input>
-          </div>
         </div>
          <div class="row">
           <div class="col-md-5">
@@ -78,7 +71,7 @@
         </div>
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
                     <label for="priority">Company Code</label>
-                    <select id="priority" class="form-control">
+                    <select id="priority" v-model="CompanyCode" class="form-control">
                         <option v-for="priority in user.priorities" v-bind:value="priority.Key">
                           {{ priority.Value }}
                         </option>
@@ -87,7 +80,7 @@
 
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
                     <label for="securityGroups">User Type</label>
-                    <select id="securityGroups" class="form-control">
+                    <select id="securityGroups"  v-model="SelectedUserType" class="form-control">
                         <option v-for="security in user.securityGroups" v-bind:value="security.Key">
                           {{ security.Value }}
                         </option>
@@ -116,7 +109,7 @@ export default {
     return {
       user: {
         company: "Paper Dashboard",
-        name: "michael23",
+        userName: "",
         email: "",
         address: "Melbourne, Australia",
         city: "Melbourne",
@@ -125,7 +118,10 @@ export default {
         priorities: [],
         securityGroups: [],
         userType: ['Clint', 'Employee', 'Admin'],
-      }
+      },
+      CompanyCode:"",
+      SelectedUserType:""
+
     };
   },
   created() {
@@ -160,7 +156,7 @@ export default {
       alert("Your data: " + JSON.stringify(this.user));
     },
     addUser(){
-        this.$http.post(userRef+".json",{"ContactPerson":this.contactPerson,"pin":this.user.pin,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments}).then(response => {
+        this.$http.post(userRef+".json",{"contactPerson":this.user.contactPerson,"name":this.user.userName,"address":this.user.address,"pin":this.user.pin,"city":this.user.city,"country":this.user.country,"email":this.user.email,"companyCode":this.CompanyCode,"securityGroups":this.SelectedUserType}).then(response => {
           // get body data
           console.log(response.body);
           alert("Your data: " + JSON.stringify(this.user));

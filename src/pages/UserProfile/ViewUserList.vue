@@ -16,11 +16,10 @@
 
 import { PaperTable } from "@/components";
 import {userRef} from "../../main.js"
-
-const tableColumns = ["ContactPerson", "address", "city", "country", "email","name","pin"];
-let tableData = []
-
+       let tableColumns= [ "person","address", "city", "country", "email","name","pin"]
+      let tableData =[]
 export default {
+
   components: {
     PaperTable
   },
@@ -63,19 +62,33 @@ export default {
     created(){
           this.$http.get(userRef+".json").then(response => {
 
-
             for(var userKey in response.body){
               if(response.body[userKey] != null){
-                tableData.push(response.body[userKey]);
+                var dict = {};
+                for(let data in response.body[userKey]){
+                    if(data!=null){
+                      if(data === "contactPerson")
+                      {
+                        dict["person"]=response.body[userKey][data]
+                      }else{
+                        dict[data]=response.body[userKey][data]
+                      }
+
+                    }
+                }
+                console.log("dict value");
+                console.log(dict);
+                tableData.push(dict)
               }
             }
+            console.log("from here")
+            console.log(tableData)
 
-          }, response => {
-            // error callback
           });
-console.log("##########");
-console.log(tableData);
-console.log("##########");
+
+    },
+    computed:{
+
     }
 };
 </script>

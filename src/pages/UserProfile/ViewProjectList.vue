@@ -81,7 +81,7 @@ export default {
           this.$http.get(projectRef+".json").then(response => {
 
             // get body data
-            console.log(response.body);
+           // console.log(response.body);
 
           }, response => {
             // error callback
