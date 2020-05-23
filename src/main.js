@@ -13,6 +13,7 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
  */
+
 import Vue from "vue";
 import App from "./App";
 import router from "./router/index";
@@ -20,13 +21,20 @@ import VueResource from 'vue-resource'
 import * as firebase from "firebase";
 import 'firebase/firestore'
 
+
 import PaperDashboard from "./plugins/paperDashboard";
-import "vue-notifyjs/themes/default.css";
+import Vuetify from "vuetify"
+import "../node_modules/vuetify/dist/vuetify.min.css"
 
 import FileUpload from 'v-file-upload';
 import { store } from './store/store';
 Vue.use(FileUpload)
-
+Vue.use(Vuetify)
+const opts = {
+  theme: {
+    dark: false
+  }
+};
 Vue.use(PaperDashboard);
 Vue.use(VueResource);
 
@@ -58,6 +66,7 @@ export { projectRef };
 export { clintDrawing };
 
 export default{
+
   data() {
     return {
         authenticated: false
@@ -68,5 +77,6 @@ export default{
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  vuetify : new Vuetify(opts)
 }).$mount("#app");

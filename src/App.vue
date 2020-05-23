@@ -2,18 +2,7 @@
 <div :class="{'nav-open': $sidebar.showSidebar}">
     <notifications></notifications>
     <router-view></router-view>
-<span v-on:click="testing()">#####</span>
-<span v-on:click="testingPost()">post</span>
-<!-- <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link> -->
-<!-- <router-view @authenticated="setAuthenticated" /> -->
- <!-- <div id="app">
-        <div id="nav">
-            <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
-        </div>
-        <router-view @authenticated="setAuthenticated" />
-    </div>-->
   </div>
-
 </template>
 
 <script>
@@ -65,45 +54,3 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.vue-notifyjs.notifications {
-  .alert {
-    z-index: 10000;
-  }
-  .list-move {
-    transition: transform 0.3s, opacity 0.4s;
-  }
-  .list-item {
-    display: inline-block;
-    margin-right: 10px;
-  }
-  .list-enter-active {
-    transition: transform 0.2s ease-in, opacity 0.4s ease-in;
-  }
-  .list-leave-active {
-    transition: transform 1s ease-out, opacity 0.4s ease-out;
-  }
-
-  .list-enter {
-    opacity: 0;
-    transform: scale(1.1);
-  }
-  .list-leave-to {
-    opacity: 0;
-    transform: scale(1.2, 0.7);
-  }
-}
-</style>
-<style>
-    body {
-        background-color: #F0F0F0;
-    }
-    h1 {
-        padding: 0;
-        margin-top: 0;
-    }
-    #app {
-        width: 1024px;
-        margin: auto;
-    }
-</style>
