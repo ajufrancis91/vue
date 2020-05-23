@@ -7,7 +7,8 @@ export const store = new Vuex.Store({
   state:{
     username:'',
     password:'',
-    companycode:'',
+    companyCode:'-M78CsNlBRR-j83D4PdJ',
+    userKey:'-M8-ucWfSQ7fi23GkFts',//cheaf architect
     pictureUrl:''
   }
 })

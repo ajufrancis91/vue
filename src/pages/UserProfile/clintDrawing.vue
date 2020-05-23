@@ -68,6 +68,14 @@
                         </option>
                     </select>
           </div>
+           <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
+                    <label for="securityGroups">Projects</label>
+                    <select id="securityGroups"  v-model="selectedProject" class="form-control">
+                        <option v-for="project in user.projects" v-bind:value="project.Key">
+                          {{ project.Value }}
+                        </option>
+                    </select>
+          </div>
         </div>
         <div class="row">
           <div class="col-md-12">
@@ -100,6 +108,7 @@
 <script>
 import FileUpload from "./FileUpload.vue";
 import {clintDrawing} from "../../main.js";
+import {projectRef} from "../../main.js"
 export default {
   components: {
         FileUpload
@@ -116,6 +125,7 @@ export default {
         PrStages: ['Initial Design','Building Approval','Final Design','Construction Stage'],
         Revisions:['1','2','3'],
         Types:['Drawing','BOQ','RFI','Client Instruction'],
+        projects:[],
         Comments: '',
       },
       selectedType:'',
@@ -123,20 +133,30 @@ export default {
       selectedDisciplines:'',
       selectedSubDisciplines:'',
       selectedPrStages:'',
-      selectedRevisions:''
+      selectedRevisions:'',
+      selectedProject:''
 
     };
   },
+  created() {
+    this.$http.get(projectRef+".json").then(response => {
+                            return response.json();
+                        })
+                        .then(data => {
+                            const resultArray = [];
+                            for (let key in data) {
+                              resultArray.push({"Key":key,"Value":data[key]["name"]});
+                            }
+                            this.user.projects = resultArray;
+                             console.log(resultArray)
+                        });
+  },
   methods: {
     updateProfile() {
-      //alert("Your data: " + this.selectedType);
-      this.$http.post(clintDrawing+".json",{"Types":this.selectedType,"docNo":this.user.docNo,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments,"File":this.$store.state.pictureUrl}).then(response => {
-          // get body data
-          alert("Your data: " + JSON.stringify(this.user));
-      }, response => {
-          // error callback
-          this.$store.state.pictureUrl="";
-      });
+       projectRef.child(this.selectedProject).child("sketches").child("clientDrawing").push({"Types":this.selectedType,"docNo":this.user.docNo,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments,"File":this.$store.state.pictureUrl,"TimeStamp":(new Date()).toUTCString()}).then(function(){
+      console.log('clearing url');
+ });
+     this.$store.state.pictureUrl="";
 
     }
   }

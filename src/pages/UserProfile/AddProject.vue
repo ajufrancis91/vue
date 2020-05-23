@@ -18,21 +18,15 @@
                         </option>
                     </select>
           </div>
-          <div class="col-md-4">
-            <fg-input type="text"
-                      label="Architect Name"
-                      placeholder="Architect Name"
-                      v-model="user.ArchitectName">
-            </fg-input>
-          </div>
+
         </div>
 
         <div class="row">
           <div class="col-md-6">
             <fg-input type="text"
-                      label="Location"
+                      label="Site Location"
                       placeholder="Location"
-                      v-model="user.Location">
+                      v-model="user.site">
             </fg-input>
           </div>
 
@@ -60,7 +54,7 @@ export default {
       user: {
         prjectName: "",
         ArchitectName: "",
-        Location: "",
+        site: "",
         ClientNames:[],
         Architect:[]
       }
@@ -75,21 +69,18 @@ export default {
                             const resultArray = [];
                             const resultArray2 = [];
                             for (let key in data) {
-                              for(let usertype in data[key]["securityGroups"]){
-
-                                    if(data[key]["securityGroups"][usertype] === "client"){
-                                          resultArray.push({"Key":key,"Value":data[key]["userName"]});
-
-                                    }else if(data[key]["securityGroups"][usertype] === "employee"){
-                                          resultArray2.push({"Key":key,"Value":data[key]["userName"]});
+                                    if(data[key]["securityGroups"] === "client"){
+                                          resultArray.push({"Key":key,"Value":data[key]["name"]});
+                                    }else if(data[key]["securityGroups"] === "employee"){
+                                          resultArray2.push({"Key":key,"Value":data[key]["name"]});
 
                                     }
-                              }
+
                             }
                             this.user.ClientNames = resultArray;
                             this.user.Architect = resultArray2;
                             console.log('Archi' + resultArray2)
-                             console.log('clint' + resultArray)
+                             console.log('client' + resultArray)
                         });
 
   },
@@ -116,12 +107,15 @@ export default {
         });
     },
     AddProject: function(){
-      alert(this.user.companyName);
-        this.$http.post(projectRef+".json",{"name":this.user.companyName,"email":this.user.email,"address":this.user.address,"pin":this.user.postalCode,"city":this.user.city,"ContactPerson":this.user.ContactPerson,"country":this.user.country}).then(response => {
+        this.$http.post(projectRef+".json",{"name":this.user.prjectName,"site":this.user.site,"companyCode":this.$store.state.companyCode}).then(response => {
           // get body data
-          console.log(response.body);
+          console.log("keeeri ");
+          userRef.child(this.$store.state.userKey).child("projects").push(response.body["name"])
+
         }, response => {
           // error callback
+
+
         });
     }
   }

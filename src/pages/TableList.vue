@@ -1,5 +1,15 @@
 <template>
     <div class="row">
+      <card>
+          <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
+                    <label for="securityGroups">Projects</label>
+                    <select id="securityGroups" @change="onChange($event)"  v-model="selectedProject" class="form-control">
+                        <option v-for="project in user.projects" v-bind:value="project.Key">
+                          {{ project.Value }}
+                        </option>
+                    </select>
+          </div>
+      </card>
       <div class="col-12">
         <card :title="table1.title" :subTitle="table1.subTitle">
           <div slot="raw-content" class="table-responsive">
@@ -11,14 +21,23 @@
       </div>
 
       <div class="col-12">
-        <card class="card-plain">
-          <div class="table-full-width table-responsive">
-            <paper-table type="hover" :title="table2.title" :sub-title="table2.subTitle" :data="table2.data"
-                         :columns="table2.columns">
+     <card :title="table2.title" :subTitle="table2.subTitle">
+          <div slot="raw-content" class="table-responsive">
+            <paper-table :data="table2.data" :columns="table2.columns">
 
             </paper-table>
           </div>
         </card>
+      </div>
+
+        <div class="col-12">
+          <card :title="table3.title" :subTitle="table3.subTitle">
+                <div slot="raw-content" class="table-responsive">
+                  <paper-table :data="table3.data" :columns="table3.columns">
+
+                  </paper-table>
+                </div>
+              </card>
       </div>
 
     </div>
@@ -26,44 +45,13 @@
 <script>
 
 import { PaperTable } from "@/components";
-const tableColumns = ["Id", "Name", "Salary", "Country", "City"];
-const tableData = [
-  {
-    id: 1,
-    name: "Dakota Rice",
-    salary: "$36.738",
-    country: "Niger",
-    city: "Oud-Turnhout"
-  },
-  {
-    id: 2,
-    name: "Minerva Hooper",
-    salary: "$23,789",
-    country: "Curaçao",
-    city: "Sinaai-Waas"
-  },
-  {
-    id: 3,
-    name: "Sage Rodriguez",
-    salary: "$56,142",
-    country: "Netherlands",
-    city: "Baileux"
-  },
-  {
-    id: 4,
-    name: "Philip Chaney",
-    salary: "$38,735",
-    country: "Korea, South",
-    city: "Overland Park"
-  },
-  {
-    id: 5,
-    name: "Doris Greene",
-    salary: "$63,542",
-    country: "Malawi",
-    city: "Feldkirchen in Kärnten"
-  }
-];
+import {projectRef} from "../../src/main.js"
+let tableColumns2 = ["Comments", "Disciplines", "File", "PrStages", "Revisions","SubDisciplines","TimeStamp","Types","docNo","title"];
+let tableColumns3 = ["Comments", "Disciplines", "File", "PrStages", "Revisions","SubDisciplines","TimeStamp","Types","docNo","title"];
+let tableColumns = ["Comments", "Disciplines", "File", "PrStages", "Revisions","SubDisciplines","TimeStamp","Types","docNo","title"];
+let tableData = [];
+let tableData2 = [];
+let tableData3 = [];
 
 export default {
   components: {
@@ -72,18 +60,41 @@ export default {
   data() {
     return {
       table1: {
-        title: "Stripped Table",
+        title: "Drawing",
         subTitle: "Here is a subtitle for this table",
         columns: [...tableColumns],
         data: [...tableData]
       },
       table2: {
-        title: "Table on Plain Background",
+        title: "RFI",
         subTitle: "Here is a subtitle for this table",
-        columns: [...tableColumns],
-        data: [...tableData]
+        columns: [...tableColumns2],
+        data: [...tableData2]
+      },
+      table3: {
+        title: "Client Instrection",
+        subTitle: "Here is a subtitle for this table",
+        columns: [...tableColumns3],
+        data: [...tableData3]
+      },
+      selectedProject:'',
+      user: {
+         projects:[]
       }
     };
+  },
+   created() {
+    this.$http.get(projectRef+".json").then(response => {
+                            return response.json();
+                        })
+                        .then(data => {
+                            const resultArray = [];
+                            for (let key in data) {
+                              resultArray.push({"Key":key,"Value":data[key]["name"]});
+                            }
+                            this.user.projects = resultArray;
+                             console.log(resultArray)
+                        });
   },
    methods: {
       getUsers: function(){
@@ -103,6 +114,48 @@ export default {
         }, response => {
           // error callback
         });
+      },
+      onChange: function($event){
+        console.log("hello");
+        projectRef.once("value",function(data){
+          data.forEach((child)=>{
+
+              // for (let innerobj in child){
+              //       console.log(innerobj)
+              // }
+        child.ref.child("sketches/drawing").once("value",function(data){
+            data.forEach((child)=>{
+              child.ref.orderByChild('TimeStamp').once("value",function(data){
+                let dict ={}
+                 data.forEach((child)=>{
+                   //create drawing dict
+                      console.log(child.val());
+                      console.log(0);
+                      dict[child.key]=child.val();
+                 });
+                  tableData.push(dict)
+                  dict={}
+
+              });
+
+            });
+        });
+
+
+
+            //console.log(child.key);
+//console.log(innerChild.child("sketches/drawing").child().key)
+
+            ///console.log(child.key)
+          });
+        });
+        // projectRef.child('sketches/drawing').orderByChild('TimeStamp').on("",function(snapshot){
+        //   console.log("rererere");
+        //   console.log(snapshot)
+        // });
+        // projectRef.child('sketches/drawing').orderByChild('TimeStamp').on("child_added", function(snapshot){
+        //   console.log(snapshot.key)
+        // })
       }
     }
 };

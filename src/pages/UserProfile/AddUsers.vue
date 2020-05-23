@@ -11,7 +11,6 @@
             </fg-input>
           </div>
           <div class="col-md-3">
-
             <fg-input type="password"
                       label="Password"
                       placeholder="Password"
@@ -77,7 +76,6 @@
                         </option>
                     </select>
         </div>
-
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
                     <label for="securityGroups">User Type</label>
                     <select id="securityGroups"  v-model="SelectedUserType" class="form-control">
@@ -86,7 +84,6 @@
                         </option>
                     </select>
         </div>
-
 
         <div class="text-center">
           <p-button type="info"
