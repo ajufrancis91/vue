@@ -75,7 +75,6 @@ import Loading from './Loading.vue'
         this.loading = true;
         setTimeout(()=>{
           this.loading = false;
-          
           // use vuex to store user inforamtion
           this.$store.dispatch('update_user_name',this.username);
           
