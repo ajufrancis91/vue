@@ -207,12 +207,12 @@ export default {
     this.drawings = drawings;
     this.rfi = rfi;
     this.clientdrawings = clientdrawings;
-    console.log("Drawing");
-    console.log(this.drawings);
-    console.log("irf");
-    console.log(this.rfi);
-    console.log("clientDrawing");
-    console.log(this.clientdrawings);
+    // console.log("Drawing");
+    // console.log(this.drawings);
+    // console.log("irf");
+    // console.log(this.rfi);
+    // console.log("clientDrawing");
+    // console.log(this.clientdrawings);
         }
     },
   created() {
