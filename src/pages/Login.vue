@@ -27,7 +27,7 @@
                 <v-form>
                   <v-text-field
                     v-model="username"
-                    label="Login"
+                    label="Email Address"
                     name="login"
                     type="text"
                   ></v-text-field>
@@ -42,6 +42,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
+                <error></error>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" v-on:click.prevent="login">Login</v-btn>
               </v-card-actions>
@@ -56,8 +57,15 @@
 
 <script>
 import Loading from './Loading.vue'
+import {userRef} from "../main.js";
+import store from "../store/store";
+import router from "../router/index.js";
+import error from "./error.vue";
   export default {
-    components:{Loading},
+    components:{
+      Loading,
+      error
+      },
   data () {
     return {
         loading: false,
@@ -75,15 +83,39 @@ import Loading from './Loading.vue'
         this.loading = true;
         setTimeout(()=>{
           this.loading = false;
-          // use vuex to store user inforamtion
-          this.$store.dispatch('update_user_name',this.username);
-          
-          // save login status in localstorage
-          localStorage.setItem('login', true);
-          
-          // redirect to user page
-          this.$router.push('/dashboard')
-        },1000);
+
+          //check firebase
+       let currentPass = this.password
+       let auth = false
+       let companyCode = ''
+       let userKey = ''
+       let name = ''
+       let email = this.username
+       userRef.orderByChild("email").equalTo(this.username).once("value", function(snapshot) {
+              if (snapshot.exists()) {
+                  snapshot.forEach((data)=>{
+                    if(data.child("password").exportVal().toString() === currentPass){
+                        console.log("success");
+                        auth = true
+                        userKey = data.key
+                        companyCode = data.child("companyCode").exportVal().toString()
+                        name = data.child("name").exportVal().toString()
+                        store.state.username = name;
+                        store.state.email = email;
+                        store.state.companyCode = companyCode;
+                        store.state.userKey = userKey;
+                        localStorage.setItem('login', true);
+                        router.push('/dashboard')
+                    }else{
+                        console.log("invalid login");
+                      }
+                  });
+              }else{
+                  console.log("invalid login");
+                }
+              });
+         
+        },1000);  
       }
     }
   }

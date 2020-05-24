@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import store from "../store/store";
 export default {
   data () {
     return {
@@ -11,11 +12,9 @@ export default {
   },
  methods:{
     logout: function(){
-          this.$store.dispatch('update_user_name','');
-          
+          store.state.email='';
           // save login status in localstorage
-          localStorage.removeItem('login')
-          
+          localStorage.setItem('login',false)
           // redirect to user page
           this.$router.push('/login')
     }
