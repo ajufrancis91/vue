@@ -25,14 +25,7 @@
 
       </div>
  <!-- -->
- <!-- -->
-      <div class="col-xl-8 col-lg-7 col-md-6" >
-        <premote-users>
 
-        </premote-users>
-
-      </div>
- <!-- -->
   <!-- -->
       <div class="col-xl-8 col-lg-7 col-md-6">
         <add-users>

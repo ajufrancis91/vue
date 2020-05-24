@@ -3,9 +3,25 @@
       <div class="col-12">
         <card :title="table1.title" :subTitle="table1.subTitle">
           <div slot="raw-content" class="table-responsive">
-            <paper-table :data="table1.data" :columns="table1.columns">
-
-            </paper-table>
+            <v-data-table
+                    :headers="headers"
+                    :items="companyList"
+                    :search="search"
+                    :items-per-page="5"
+                    item-key="name"
+                    class="elevation-1"
+                    :footer-props="{
+                  showFirstLastPage: true,
+                  firstIcon: 'mdi-arrow-collapse-left',
+                  lastIcon: 'mdi-arrow-collapse-right',
+                  prevIcon: 'mdi-minus',
+                  nextIcon: 'mdi-plus'
+                }"
+                  >
+                    <template v-slot:item.File="{ item }">
+                      <img :src="item.File" style="width: 200px; height: 200px" />
+                    </template>
+            </v-data-table>
           </div>
         </card>
       </div>
@@ -15,44 +31,6 @@
 
 import { PaperTable } from "@/components";
 import {companyRef} from "../../main.js"
-const tableColumns = ["Id", "Name", "Salary", "Country", "City"];
-const tableData = [
-  {
-    id: 1,
-    name: "Anandhu",
-    salary: "$36.738",
-    country: "Niger",
-    city: "Oud-Turnhout"
-  },
-  {
-    id: 2,
-    name: "Minerva Hooper",
-    salary: "$23,789",
-    country: "Curaçao",
-    city: "Sinaai-Waas"
-  },
-  {
-    id: 3,
-    name: "Sage Rodriguez",
-    salary: "$56,142",
-    country: "Netherlands",
-    city: "Baileux"
-  },
-  {
-    id: 4,
-    name: "Philip Chaney",
-    salary: "$38,735",
-    country: "Korea, South",
-    city: "Overland Park"
-  },
-  {
-    id: 5,
-    name: "Doris Greene",
-    salary: "$63,542",
-    country: "Malawi",
-    city: "Feldkirchen in Kärnten"
-  }
-];
 
 export default {
   components: {
@@ -60,17 +38,26 @@ export default {
   },
   data() {
     return {
+      search: "",
+      headers: [
+        {
+          align: "start",
+          sortable: false,
+          value: "title"
+        },
+        { text: "Company Name", value: "name" },
+        { text: "Contact Person", value: "site" },
+        { text: "Email", value: "email" },
+        { text: "Country", value: "country" },
+        { text: "City", value: "city" },
+        { text: "Pin", value: "pin" },
+        { text: "Address", value: "address" }
+      ],
+      companyList: [],
       table1: {
         title: "Company List Table",
         subTitle: "List of all companies",
-        columns: [...tableColumns],
-        data: [...tableData]
-      },
-      table2: {
-        title: "Table on Plain Background",
-        subTitle: "List of all companies",
-        columns: [...tableColumns],
-        data: [...tableData]
+
       }
     };
   },
@@ -97,8 +84,26 @@ export default {
     created(){
           this.$http.get(companyRef+".json").then(response => {
 
-            // get body data
-            //console.log(response.body);
+              for(var userKey in response.body){
+                      if(response.body[userKey] != null){
+                          var dict = {};
+                              for(let data in response.body[userKey])
+                              {
+                                  if(data!=null){
+                                      if(data === "contactPerson")
+                                      {
+                                        dict["person"]=response.body[userKey][data]
+                                      }else{
+                                        dict[data]=response.body[userKey][data]
+                                      }
+
+                                      }
+                              }
+                                  // console.log("dict value");
+                                  // console.log(dict);
+                                  this.companyList.push(dict)
+                      }
+                  }
 
           }, response => {
             // error callback

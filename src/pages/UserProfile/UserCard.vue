@@ -6,7 +6,7 @@
     <div>
       <div class="author">
         <img class="avatar border-white" src="@/assets/img/faces/face-2.jpg" alt="...">
-        <h4 class="title">Chet Faker
+        <h4 class="title" ><p> {{ UserName }}</p>
           <br>
           <a href="#">
             <small>Company Name</small>
@@ -23,6 +23,7 @@
 export default {
   data() {
     return {
+      UserName:this.$store.state.username,
       details: [
         {
           title: "12",
