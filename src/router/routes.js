@@ -11,6 +11,7 @@ import Typography from "@/pages/Typography.vue";
 import TableList from "@/pages/TableList.vue";
 import LoginComponent from "../pages/Login.vue"
 import store from '../store/store';
+import Notifications from "@/pages/Notifications.vue";
 
 
 
@@ -28,7 +29,7 @@ const ifAuthenticated = (to, from, next) => {
     return
   }
   next('/login')
-  
+
 }
 
 const routes = [
@@ -73,6 +74,12 @@ const routes = [
         path: "table-list",
         name: "table-list",
         component: TableList,
+        beforeEnter: ifAuthenticated,
+      },
+      {
+        path: "notifications",
+        name: "settings",
+        component: Notifications,
         beforeEnter: ifAuthenticated,
       }
     ]

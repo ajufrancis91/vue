@@ -6,7 +6,7 @@
         <sidebar-link to="/admin" name="Admin" icon="ti-user"/>
         <sidebar-link to="/table-list" name="View Drawings" icon="ti-view-list-alt"/>
         <sidebar-link to="/typography" name="Add Drawings" icon="ti-save"/>
-        <sidebar-link to="/settings" name="Settings" icon="ti-settings"/>
+        <sidebar-link to="/notifications" name="Settings" icon="ti-settings"/>
       </template>
     </side-bar>
     <div class="main-panel">
@@ -18,7 +18,7 @@
 
       <content-footer>
       </content-footer>
-      
+
     </div>
   </div>
 </template>

@@ -30,7 +30,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-3">
            <label for="priority">Discipline</label>
                     <select id="priority" v-model="selectedDisciplines" class="form-control">
                         <option v-for="Discipline in user.Disciplines" >
@@ -38,13 +38,20 @@
                         </option>
                     </select>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-3">
             <label for="priority">Sub Discipline</label>
                     <select id="priority" v-model="selectedSubDisciplines" class="form-control">
                         <option v-for="SubDiscipline in user.SubDisciplines" >
                           {{ SubDiscipline }}
                         </option>
                     </select>
+          </div>
+          <div class="col-md-3">
+             <fg-input type="text"
+                      label="Title"
+                      placeholder="Title"
+                      v-model="user.title">
+            </fg-input>
           </div>
         </div>
 

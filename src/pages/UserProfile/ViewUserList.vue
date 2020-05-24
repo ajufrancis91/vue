@@ -3,9 +3,25 @@
       <div class="col-12">
         <card :title="table1.title" :subTitle="table1.subTitle">
           <div slot="raw-content" class="table-responsive">
-            <paper-table :data="table1.data" :columns="table1.columns">
-
-            </paper-table>
+            <v-data-table
+                    :headers="headers"
+                    :items="userDetails"
+                    :search="search"
+                    :items-per-page="5"
+                    item-key="name"
+                    class="elevation-1"
+                    :footer-props="{
+                  showFirstLastPage: true,
+                  firstIcon: 'mdi-arrow-collapse-left',
+                  lastIcon: 'mdi-arrow-collapse-right',
+                  prevIcon: 'mdi-minus',
+                  nextIcon: 'mdi-plus'
+                }"
+                  >
+                    <template v-slot:item.File="{ item }">
+                      <img :src="item.File" style="width: 200px; height: 200px" />
+                    </template>
+            </v-data-table>
           </div>
         </card>
       </div>
@@ -16,8 +32,8 @@
 
 import { PaperTable } from "@/components";
 import {userRef} from "../../main.js"
-       let tableColumns= [ "person","address", "city", "country", "email","name","pin"]
-      let tableData =[]
+
+
 export default {
 
   components: {
@@ -25,18 +41,28 @@ export default {
   },
   data() {
     return {
+      search: "",
+      headers: [
+        {
+
+          align: "start",
+          sortable: false,
+          value: "title"
+        },
+        { text: "Address", value: "address" },
+        { text: "City", value: "city" },
+        { text: "Company Code", value: "companyCode" },
+        { text: "Contact Person", value: "contsctPerson" },
+        { text: "Country", value: "country" },
+        { text: "email", value: "email" },
+        { text: "Name", value: "name" },
+        { text: "Pin", value: "pin" }
+      ],
+      userDetails: [],
       table1: {
-        title: "Users list",
-        subTitle: "Here is a list of all users",
-        columns: [...tableColumns],
-        data: [...tableData]
+        title: "View all Users",
+        subTitle: "List of all Projects"
       },
-      table2: {
-        title: "Table on Plain Background",
-        subTitle: "Here is a subtitle for this table",
-        columns: [...tableColumns],
-        data: [...tableData]
-      }
     };
   },
    methods: {
@@ -76,13 +102,13 @@ export default {
 
                     }
                 }
-                console.log("dict value");
-                console.log(dict);
-                tableData.push(dict)
+                // console.log("dict value");
+                // console.log(dict);
+                this.userDetails.push(dict)
               }
             }
-            console.log("from here")
-            console.log(tableData)
+            // console.log("from here")
+            // console.log(this.userDetails)
 
           });
 
