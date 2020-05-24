@@ -131,7 +131,7 @@ export default {
                               resultArray.push({"Key":key,"Value":data[key]["name"]});
                             }
                             this.user.priorities = resultArray;
-                             console.log(resultArray)
+                             //console.log(resultArray)
                         });
     this.$http.get(securityGroupsRef+".json").then(response => {
                             return response.json();
@@ -144,7 +144,7 @@ export default {
                               }
                             }
                             this.user.securityGroups = resultArray;
-                             console.log(resultArray)
+                             //console.log(resultArray)
                         });
 
   },
@@ -155,7 +155,7 @@ export default {
     addUser(){
         this.$http.post(userRef+".json",{"contactPerson":this.user.contactPerson,"name":this.user.userName,"address":this.user.address,"pin":this.user.pin,"city":this.user.city,"country":this.user.country,"email":this.user.email,"companyCode":this.CompanyCode,"securityGroups":this.SelectedUserType}).then(response => {
           // get body data
-          console.log(response.body);
+         // console.log(response.body);
           alert("Your data: " + JSON.stringify(this.user));
       }, response => {
           // error callback

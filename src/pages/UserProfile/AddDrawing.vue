@@ -155,14 +155,14 @@ export default {
                               resultArray.push({"Key":key,"Value":data[key]["name"]});
                             }
                             this.user.projects = resultArray;
-                             console.log(resultArray)
+                             //console.log(resultArray)
                         });
   },
   methods: {
     updateProfile() {
       //alert("Your data: " + this.selectedType);
       projectRef.child(this.selectedProject).child("sketches").child("drawing").push({"Types":this.selectedType,"docNo":this.user.docNo,"title":this.user.title,"Disciplines":this.selectedDisciplines,"SubDisciplines":this.selectedSubDisciplines,"PrStages":this.selectedPrStages,"Revisions":this.selectedRevisions,"Comments":this.user.Comments,"File":this.$store.state.pictureUrl,"TimeStamp":(new Date()).toUTCString()}).then(function(){
-      console.log('clearing url');
+      //console.log('clearing url');
  });
      this.$store.state.pictureUrl="";
 

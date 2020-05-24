@@ -1,4 +1,5 @@
 <template>
+<v-app>
     <div class="row">
       <div class="col-12">
         <card :title="table1.title" :subTitle="table1.subTitle">
@@ -26,6 +27,7 @@
         </card>
       </div>
     </div>
+  </v-app>
 </template>
 <script>
 

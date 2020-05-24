@@ -79,8 +79,8 @@ export default {
                             }
                             this.user.ClientNames = resultArray;
                             this.user.Architect = resultArray2;
-                            console.log('Archi' + resultArray2)
-                             console.log('client' + resultArray)
+                            //console.log('Archi' + resultArray2)
+                            //console.log('client' + resultArray)
                         });
 
   },
@@ -89,7 +89,7 @@ export default {
       this.$http.get(companyRef+".json").then(response => {
 
           // get body data
-          console.log(response.body);
+          //console.log(response.body);
 
 
         }, response => {
@@ -100,7 +100,7 @@ export default {
         this.$http.get(companyRef+".json").then(response => {
 
           // get body data
-          console.log(response.body);
+          //console.log(response.body);
 
         }, response => {
           // error callback
@@ -109,7 +109,7 @@ export default {
     AddProject: function(){
         this.$http.post(projectRef+".json",{"name":this.user.prjectName,"site":this.user.site,"companyCode":this.$store.state.companyCode}).then(response => {
           // get body data
-          console.log("keeeri ");
+          //console.log("keeeri ");
           userRef.child(this.$store.state.userKey).child("projects").push(response.body["name"])
 
         }, response => {
