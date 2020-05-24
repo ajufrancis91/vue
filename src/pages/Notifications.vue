@@ -12,7 +12,6 @@
   </card>
 </template>
 <script>
-import NotificationTemplate from './Notifications/NotificationTemplate';
 import ViewCompanyList from "./UserProfile/ViewCompanyList.vue";
 import ViewProjectList from "./UserProfile/ViewProjectList.vue";
 import ViewUserList from "./UserProfile/ViewUserList.vue";
@@ -35,7 +34,6 @@ export default {
     notifyVue(verticalAlign, horizontalAlign) {
       const color = Math.floor(Math.random() * 4 + 1);
       this.$notify({
-        component: NotificationTemplate,
         icon: "ti-gift",
         horizontalAlign: horizontalAlign,
         verticalAlign: verticalAlign,

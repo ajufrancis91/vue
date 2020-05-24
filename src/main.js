@@ -42,7 +42,7 @@ Vue.use(VueResource);
 let config = {
   projectId: "buildin-f0275",
   databaseURL: "https://buildin-f0275.firebaseio.com",
-  storageBucket:"gs://buildin-f0275.appspot.com"
+  storageBucket: "gs://buildin-f0275.appspot.com"
 };
 
 firebase.initializeApp(config);
@@ -65,18 +65,46 @@ export { addrfi };
 export { projectRef };
 export { clintDrawing };
 
-export default{
+export default {
 
   data() {
     return {
-        authenticated: false
+
     }
-}
+  }
 }
 /* eslint-disable no-new */
 new Vue({
   router,
   store,
   render: h => h(App),
-  vuetify : new Vuetify(opts)
+  vuetify: new Vuetify(opts),
+  created:function(){
+    this.checkLogin();
+  },
+  methods:{
+  	checkLogin(){
+  		if(!localStorage.getItem('login')){
+  			this.$router.push('/login');
+        return;
+      }
+      // if user refresh the page, information stroed in vuex will lost. 
+  // so we need to get user information again, based on the information stored in localstorage, 
+  // in this application, I only stored a boolean value,
+  // but I think in a real life applicaiton, this could be a token or id or somethig else that can be sent to server to identify a user 
+  if(!this.$store.username && localStorage.getItem('login'))
+  {
+    // I am using a fake method.
+    this.$store.dispatch('update_user_name','');    
+    this.$router.push('/dashboard');
+    return;
+  }
+  // if everything is fine, redirect
+  if(this.$store.username && localStorage.getItem('login'))
+  {
+    this.$router.push('/dashboard');
+    return;
+  }
+  	}
+  }
 }).$mount("#app");

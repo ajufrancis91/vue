@@ -4,68 +4,84 @@ import NotFound from "@/pages/NotFoundPage.vue";
 
 // Admin pages
 import Dashboard from "@/pages/Dashboard.vue";
-import UserProfile from "@/pages/UserProfile.vue";
-import Notifications from "@/pages/Notifications.vue";
+import Admin from "@/pages/UserProfile.vue";
 import Icons from "@/pages/Icons.vue";
 import Maps from "@/pages/Maps.vue";
 import Typography from "@/pages/Typography.vue";
 import TableList from "@/pages/TableList.vue";
-import LoginComponent from "../pages/views/login.vue"
-import SecureComponent from "../pages/views/secure.vue"
+import LoginComponent from "../pages/Login.vue"
+import store from '../store/store';
+
+
+
+const ifNotAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next('/login')
+    return
+  }
+  next()
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/login')
+  
+}
 
 const routes = [
   {
     path: "/",
     name: "dashboard",
     component: DashboardLayout,
+    beforeEnter: ifAuthenticated,
     children: [
       {
         path: "dashboard",
         name: "dashboard",
-        component: Dashboard
+        component: Dashboard,
+        beforeEnter: ifAuthenticated,
       },
 
       {
-        path: "stats",
-        name: "stats",
-        component: UserProfile
-      },
-      {
-        path: "notifications",
-        name: "notifications",
-        component: Notifications
+        path: "admin",
+        name: "admin",
+        component: Admin,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "icons",
         name: "icons",
-        component: Icons
+        component: Icons,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "maps",
         name: "maps",
-        component: Maps
+        component: Maps,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "typography",
         name: "typography",
-        component: Typography
+        component: Typography,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "table-list",
         name: "table-list",
-        component: TableList
+        component: TableList,
+        beforeEnter: ifAuthenticated,
       }
     ]
   },
   {
     path: "/login",
     name: "login",
-    component: LoginComponent
-},
-{
-    path: "/secure",
-    name: "secure",
-    component: SecureComponent
+    component: LoginComponent,
+    beforeEnter: ifNotAuthenticated
 },
   { path: "*", component: NotFound }
 ];

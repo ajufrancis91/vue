@@ -15,30 +15,17 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="ti-panel"></i>
-              <p>Stats</p>
+              <Logout></Logout>
             </a>
-          </li>
-          <drop-down class="nav-item"
-                     title="5 Notifications"
-                     title-classes="nav-link"
-                     icon="ti-bell">
-            <a class="dropdown-item" href="#">Notification 1</a>
-            <a class="dropdown-item" href="#">Notification 2</a>
-            <a class="dropdown-item" href="#">Notification 3</a>
-            <a class="dropdown-item" href="#">Notification 4</a>
-            <a class="dropdown-item" href="#">Another notification</a>
-          </drop-down>
-          <li class="nav-item">
-
           </li>
         </ul>
       </div>
     </div></nav>
 </template>
 <script>
-
+import Logout from "../../pages/Logout.vue"
 export default {
+   components:{Logout},
   computed: {
     routeName() {
       const { name } = this.$route;
