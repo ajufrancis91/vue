@@ -1,15 +1,15 @@
 <template>
     <div class="row">
-       <div class="col-xl-4 col-lg-5 col-md-6">
+       <div class="col-xl-12 col-lg-12 col-md-6">
         <user-card>
 
         </user-card>
 
       </div>
-      <div class="col-xl-8 col-lg-7 col-md-6">
+      <div class="col-xl-12 col-lg-12 col-md-6">
 
 <!-- -->
-      <div class="col-xl-8 col-lg-7 col-md-6" >
+      <div class="col-xl-12 col-lg-12 col-md-6" >
         <add-project>
 
         </add-project>
@@ -18,7 +18,7 @@
  <!-- -->
 
  <!-- -->
-      <div class="col-xl-8 col-lg-7 col-md-6" >
+      <div class="col-xl-12 col-lg-12 col-md-6" >
         <create-company>
 
         </create-company>
@@ -27,7 +27,7 @@
  <!-- -->
 
   <!-- -->
-      <div class="col-xl-8 col-lg-7 col-md-6">
+      <div class="col-xl-12 col-lg-12 col-md-6">
         <add-users>
 
         </add-users>
