@@ -42,7 +42,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <error></error>
+                <error v-if="invalid"></error>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" v-on:click.prevent="login">Login</v-btn>
               </v-card-actions>
@@ -56,10 +56,8 @@
 </template>
 
 <script>
-import Loading from './Loading.vue'
+import Loading from './Loading.vue';
 import {userRef} from "../main.js";
-import store from "../store/store";
-import router from "../router/index.js";
 import error from "./error.vue";
   export default {
     components:{
@@ -69,6 +67,7 @@ import error from "./error.vue";
   data () {
     return {
         loading: false,
+        invalid :false,
         username: "",
         password: ""
     }
@@ -83,35 +82,28 @@ import error from "./error.vue";
         this.loading = true;
         setTimeout(()=>{
           this.loading = false;
-
           //check firebase
-       let currentPass = this.password
-       let auth = false
-       let companyCode = ''
-       let userKey = ''
-       let name = ''
-       let email = this.username
+       let vm = this;
        userRef.orderByChild("email").equalTo(this.username).once("value", function(snapshot) {
               if (snapshot.exists()) {
                   snapshot.forEach((data)=>{
-                    if(data.child("password").exportVal().toString() === currentPass){
+                    if(data.child("password").exportVal().toString() === vm.password){
                         console.log("success");
-                        auth = true
-                        userKey = data.key
-                        companyCode = data.child("companyCode").exportVal().toString()
-                        name = data.child("name").exportVal().toString()
-                        store.state.username = name;
-                        store.state.email = email;
-                        store.state.companyCode = companyCode;
-                        store.state.userKey = userKey;
+                        vm.invalid = false;
+                        vm.$store.state.username = data.child("name").exportVal().toString();
+                        vm.$store.state.email = vm.username;
+                        vm.$store.state.companyCode = data.child("companyCode").exportVal().toString();
+                        vm.$store.state.userKey = data.key;
                         localStorage.setItem('login', true);
-                        router.push('/dashboard')
+                        vm.$router.push('/dashboard')
                     }else{
                         console.log("invalid login");
+                        vm.invalid = true;
                       }
                   });
               }else{
                   console.log("invalid login");
+                   vm.invalid = true;
                 }
               });
          

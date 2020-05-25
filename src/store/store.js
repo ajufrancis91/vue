@@ -41,18 +41,12 @@ export const store = new Vuex.Store({
   },
   getters: {
     isAuthenticated: (state) => {
-      // if(state.username === '' && localStorage.getItem('login') === false){
-      //       return false
-      // }else {
-      //   return true
-      // }
       if(state.email === ''){
           return false;
       }else{
         return true;
       }
-    },
-    // other getters
+    }
   },
 })
 
