@@ -126,6 +126,8 @@
 
 <script>
 import { projectRef } from "../../src/main.js";
+import { userRef } from "../../src/main.js";
+
 export default {
   data() {
     return {
@@ -158,19 +160,15 @@ export default {
   },
   methods: {
         onChange(event) {
-            let drawings = [];
-            let rfi = [];
-            let clientdrawings = [];
-
+        let vm = this;
         projectRef.child(event.Key).child("sketches/drawing").once("value", function(data) {
           data.forEach(child => {
             child.ref.orderByChild("TimeStamp").once("value", function(data) {
               let dict = {};
               data.forEach(child => {
-                //create drawing dict
                 dict[child.key] = child.val();
               });
-              drawings.push(dict);
+              vm.drawings.push(dict);
               dict = {};
             });
           });
@@ -181,10 +179,9 @@ export default {
             child.ref.orderByChild("TimeStamp").once("value", function(data) {
               let dict = {};
               data.forEach(child => {
-                //create drawing dict
                 dict[child.key] = child.val();
               });
-              rfi.push(dict);
+              vm.rfi.push(dict);
               dict = {};
             });
           });
@@ -195,38 +192,25 @@ export default {
             child.ref.orderByChild("TimeStamp").once("value", function(data) {
               let dict = {};
               data.forEach(child => {
-                //create drawing dict
                 dict[child.key] = child.val();
               });
-              clientdrawings.push(dict);
+              vm.clientdrawings.push(dict);
               dict = {};
             });
           });
         });
-
-    this.drawings = drawings;
-    this.rfi = rfi;
-    this.clientdrawings = clientdrawings;
-    // console.log("Drawing");
-    // console.log(this.drawings);
-    // console.log("irf");
-    // console.log(this.rfi);
-    // console.log("clientDrawing");
-    // console.log(this.clientdrawings);
         }
     },
   created() {
-    this.$http.get(projectRef+".json").then(response => {
-                            return response.json();
-                        })
-                        .then(data => {
-                            const resultArray = [];
-                            for (let key in data) {
-                              resultArray.push({"Key":key,"Value":data[key]["name"]});
-                            }
-                            this.user.projects = resultArray;
-                            console.log(resultArray)
-                        });
+    let vm = this;
+    userRef.child(this.$store.state.userKey).child("projects").once("value", function(snapshot) {
+     snapshot.forEach((data)=>{
+          projectRef.child(data.val()).child("name").once("value", function(snapshot) {
+                vm.user.projects.push({"Key":data.val(),"Value":snapshot.val()});
+          });
+     })
+    
+    });
   }
 };
 </script>
