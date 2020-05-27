@@ -9,7 +9,8 @@ export const store = new Vuex.Store({
     email:'',
     companyCode:'',
     userKey:'',
-    pictureUrl:''
+    pictureUrl:'',
+    securityGroups:''
   },
   mutations:{
     username(state,name){
@@ -23,6 +24,9 @@ export const store = new Vuex.Store({
     },
     userKey(state,userKey){
       state.userKey = userKey;
+    },
+    securityGroups(state,securityGroups){
+      state.securityGroups = securityGroups;
     }
   },
   actions:{
@@ -37,7 +41,11 @@ export const store = new Vuex.Store({
     },
     update_userKey(store,userKey){
       store.commit('userKey',userKey);
-    }
+    },
+    update_securityGroups(store,securityGroups){
+      store.commit('securityGroups',securityGroups);
+    },
+
   },
   getters: {
     isAuthenticated: (state) => {

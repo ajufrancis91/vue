@@ -105,9 +105,10 @@ export default {
   data() {
     return {
       user: {
-        company: "Paper Dashboard",
+        company: "",
         userName: "",
         email: "",
+        password:"",
         address: "Melbourne, Australia",
         city: "Melbourne",
         pin: "",
@@ -153,10 +154,9 @@ export default {
       alert("Your data: " + JSON.stringify(this.user));
     },
     addUser(){
-        this.$http.post(userRef+".json",{"contactPerson":this.user.contactPerson,"name":this.user.userName,"address":this.user.address,"pin":this.user.pin,"city":this.user.city,"country":this.user.country,"email":this.user.email,"companyCode":this.CompanyCode,"securityGroups":this.SelectedUserType}).then(response => {
-          // get body data
-         // console.log(response.body);
-          alert("Your data: " + JSON.stringify(this.user));
+        this.$http.post(userRef+".json",{"contactPerson":this.user.contactPerson,"name":this.user.userName,"address":this.user.address,"pin":this.user.pin,"city":this.user.city,"country":this.user.country,"email":this.user.email,"companyCode":this.CompanyCode,"securityGroups":this.SelectedUserType,"password":this.user.password}).then(response => {
+
+        alert("Your data: " + JSON.stringify(this.user));
       }, response => {
           // error callback
       });

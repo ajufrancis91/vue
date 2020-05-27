@@ -74,6 +74,7 @@ import error from "./error.vue";
   },
   methods:{
     login: function(){
+
       // should be replaced by real login code
       // there I just did some simple validation and use a fake login
       if(this.username != '' && this.password!= '' )
@@ -94,6 +95,9 @@ import error from "./error.vue";
                         vm.$store.state.email = vm.username;
                         vm.$store.state.companyCode = data.child("companyCode").exportVal().toString();
                         vm.$store.state.userKey = data.key;
+                        vm.$store.state.securityGroups = data.child("securityGroups").exportVal().toString();
+                        console.log("------------------invalid login-------------");
+                       console.log(vm.$store.state.securityGroups);
                         localStorage.setItem('login', true);
                         vm.$router.push('/dashboard')
                     }else{
@@ -106,8 +110,8 @@ import error from "./error.vue";
                    vm.invalid = true;
                 }
               });
-         
-        },1000);  
+
+        },1000);
       }
     }
   }

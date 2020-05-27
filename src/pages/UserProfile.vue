@@ -18,7 +18,7 @@
  <!-- -->
 
  <!-- -->
-      <div class="col-xl-12 col-lg-12 col-md-6" >
+      <div class="col-xl-12 col-lg-12 col-md-6" v-if="userType === 'admin'" >
         <create-company>
 
         </create-company>
@@ -64,6 +64,11 @@ export default {
     UserCard,
     MembersCard,
     PremoteUsers
+  },
+   data () {
+    return {
+        userType:this.$store.state.securityGroups
+    }
   }
 };
 </script>
